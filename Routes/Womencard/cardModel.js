@@ -25,6 +25,24 @@ const cardSchema = new mongoose.Schema({
     minlength: 11,
     maxlength: 1024,
   },
+  image1: {
+    type: String,
+    required: true,
+    minlength: 11,
+    maxlength: 1024,
+  },
+  image2: {
+    type: String,
+    required: true,
+    minlength: 11,
+    maxlength: 1024,
+  },
+  image3: {
+    type: String,
+    required: true,
+    minlength: 11,
+    maxlength: 1024,
+  },
   userID: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",

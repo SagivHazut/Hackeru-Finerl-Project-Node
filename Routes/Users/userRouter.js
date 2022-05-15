@@ -47,8 +47,8 @@ router.get("/userInfo", auth, (req, res) => {
 
   User.findById(user._id)
     .select(["-password", "-createdAt", "-__v"])
-    .then(user => res.json(user))
-    .catch(errorsFromMongoose => res.status(500).json(errorsFromMongoose));
+    .then((user) => res.json(user))
+    .catch((errorsFromMongoose) => res.status(500).json(errorsFromMongoose));
 });
 
 module.exports = router;

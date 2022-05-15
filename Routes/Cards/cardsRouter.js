@@ -84,7 +84,10 @@ router.post("/", auth, async (req, res) => {
       name: card.name,
       description: card.description,
       phone: card.phone,
-      image: card.image
+      image: card.image,
+      image3: card.image3,
+      image2: card.image2,
+      image1: card.image1
         ? card.image
         : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
       userID: user._id,
