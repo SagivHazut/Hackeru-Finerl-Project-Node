@@ -59,8 +59,7 @@ const cardSchema = new mongoose.Schema({
     maxlength: 7,
     unique: true,
   },
-
-  likes: [String],
+  likes: { type: Boolean, default: false },
 });
 
 const Card = mongoose.model("Card", cardSchema);

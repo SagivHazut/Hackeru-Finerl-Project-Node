@@ -59,7 +59,15 @@ router.get("/my-cards", auth, (req, res) => {
     .then((cards) => res.json(cards))
     .catch((error) => res.status(500).send(error.message));
 });
+/********** סעיף  **********/
 
+router.get("/my-likes", async (req, res) => {
+  let card = req.body;
+
+  Card.find({ card })
+    .then((cards) => res.json(cards))
+    .catch((error) => res.status(500).send(error.message));
+});
 /********** סעיף 10 **********/
 router.post("/", auth, async (req, res) => {
   try {
@@ -91,6 +99,7 @@ router.post("/", auth, async (req, res) => {
         ? card.image
         : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
       userID: user._id,
+      likes: card.likes,
       bizNumber,
     };
 
@@ -188,6 +197,32 @@ router.patch("/:id", auth, async (req, res) => {
       userID: user._id,
     };
 
+    card = await Card.findOneAndUpdate(filter, card);
+    if (!card) {
+      console.log(chalk.redBright("No card with this ID in the database!"));
+      return res.status(404).send("No card with this ID in the database!");
+    }
+    card = await Card.findById(card._id);
+    return res.send(card);
+  } catch (error) {
+    console.log(chalk.redBright(error.message));
+    return res.status(500).send(error.message);
+  }
+});
+
+router.patch("/likes/:id", auth, async (req, res) => {
+  try {
+    let user = req.user;
+
+    let card = req.body.likes;
+
+    card = {
+      likes: (card = !card),
+    };
+    const filter = {
+      _id: req.params.id,
+      userID: user._id,
+    };
     card = await Card.findOneAndUpdate(filter, card);
     if (!card) {
       console.log(chalk.redBright("No card with this ID in the database!"));

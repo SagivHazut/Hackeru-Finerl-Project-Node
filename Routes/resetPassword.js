@@ -37,4 +37,19 @@ router.get("/resetPassword", (req, res) => {
   });
 });
 
+router.post("/", (req, res) => {
+  let { email, newPass } = req.query;
+  createHash(newPass).then((hashedPass) => {
+    updateUserPassword(email, hashedPass)
+      .then((updateRes) => {
+        res.statusCode = 200;
+        res.json({ msg: updateRes });
+      })
+      .catch((e) => {
+        res.statusCode = 500;
+        console.log(e);
+        res.json({ msg: "Error" });
+      });
+  });
+});
 module.exports = router;

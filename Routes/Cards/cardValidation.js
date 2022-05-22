@@ -9,6 +9,7 @@ function validateCard(card) {
     image2: Joi.string().min(11).max(256),
     image3: Joi.string().min(11).max(256),
     image: Joi.string().min(11).max(256),
+    likes: Joi.boolean(),
   });
   return schema.validate(card);
 }
